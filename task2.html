@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+body{
+
+	background-color: #e6f2ff;
+}
+#div1 {border:1px solid #aaaaaa; position: absolute;
+    height: 200px;
+    width: 400px;
+    margin: -100px 0 0 -200px;
+    top: 25%;
+    left: 50%;}
+
+    body{
+    	margin-right: 1000px;
+    }
+</style>
+<script>
+var data = 
+[{
+	"type": "",
+	"label": "",
+	"options": "",
+	"data": ""
+}, {
+	"type": "",
+	"label": "",
+	"options": "",
+	"data": ""
+}, {
+	"type": "",
+	"label": "",
+	"options": "",
+	"data": ""
+}]
+var i = 0;
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+	
+	if(ev.target.id=="textbox" && i!=3)
+	{
+		data[i].type="textbox";
+		var a = document.getElementById("textbox").value;
+		
+		data[i].data=a;
+		console.log(data[i].type);
+		i++;
+		
+	}
+	else if (ev.target.id=="label_input" && i!=3)
+	{
+		data[i].type="title";
+		var a1 = document.getElementById("label_entry").value;
+		data[i].label=a1;
+		console.log(data[i].type);
+		i++;
+
+	}
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+    ev.target.appendChild("<br>");
+    
+}
+function display()
+{
+var jsonStr = JSON.stringify(data);
+document.getElementById("display").innerHTML = "<b>" + "OUTPUT" + "</b>" +"<br>" + jsonStr;
+}
+</script>
+</head>
+<body>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+<div class="panel panel-default">
+	<div class="panel-heading" >
+		TOOLBAR
+	</div>
+	<div class="panel-body" >
+		<h4><span><i>Please fill the data before dropping:-</i></span></h4>
+		<span id="label_input" draggable="true" ondragstart="drag(event)">Editable label</span>
+		<input id="label_entry" value ="" style="display:none;"></input>	
+		<br>
+		<br>
+		<input type="textbox" draggable="true" id="textbox" value=" " ondragstart="drag(event)" ><input>
+		<br>
+		<!--<br>
+		<input type="checkbox" draggable="true" id ="checkbox" ondragstart="drag(event)"><input> -->
+		
+	</div>
+</div>
+<input type="submit" name="button" class= "btn btn-lg btn-primary "id="button1" onclick="display()" value="Create" />
+
+<div id = "display"></div>
+
+<script>
+$('#label_input').click(function() {
+    $('#label_input').css('display', 'none');
+    $('#label_entry')
+        .val($('#label_input').text())
+        .css('display', '')
+        .focus();
+});
+
+$('#label_entry').blur(function() {
+    $('#label_entry').css('display', 'none');
+    $('#label_input')
+        .text($('#label_entry').val())
+        .css('display', '');
+});
+</script>
+</body>
+</html>
