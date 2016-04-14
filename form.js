@@ -16,15 +16,41 @@ var data =
 	"data": ""
 }]
 
+
 var x = document.getElementById("form_sample");
 var createform = document.createElement('form'); // Creating a new form
 createform.setAttribute("action", ""); 
 createform.setAttribute("method", "post");
 x.appendChild(createform);
 
+var inputlabel = document.createElement('label'); // Create Label 
+inputlabel.innerHTML = "Enter the input as JSON"; // Set Field Labels
+createform.appendChild(inputlabel);
 
+var editbox = document.createElement('input'); 
+editbox.setAttribute("type", data[1].type);
+editbox.setAttribute("id", "id");
+editbox.setAttribute("value", "");
+editbox.setAttribute("name", "edit");
+createform.appendChild(editbox);
+
+var i =2 
+while(i>=0)
+{
 var linebreak = document.createElement('br');
 createform.appendChild(linebreak);
+i--;
+}
+
+function submitdata()
+{
+	var data1 = document.getElementById("id").value;
+	console.log(data1);
+	//var jsonStr1 = JSON.stringify(data1);
+	document.getElementById("inputdiv").innerHTML = "You have input as" + " " + data;
+	
+}
+
 // ------- first input
 var namelabel = document.createElement('label'); // Create Label 
 namelabel.innerHTML = data[0].label; // Set Field Labels
